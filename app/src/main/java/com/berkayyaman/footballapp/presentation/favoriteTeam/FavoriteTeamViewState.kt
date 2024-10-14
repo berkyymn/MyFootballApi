@@ -7,5 +7,7 @@ import com.berkayyaman.footballapp.domain.model.TeamUiModel
  */
 data class FavoriteTeamViewState(
     val teams: ArrayList<TeamUiModel> = arrayListOf(),
-    val error: String = ""
+    val error: String = "",
+    var searchString: String = "",
+    var isLoading: Boolean = false
 )
