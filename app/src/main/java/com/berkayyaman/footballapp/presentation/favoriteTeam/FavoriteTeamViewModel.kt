@@ -32,7 +32,14 @@ class FavoriteTeamViewModel @Inject constructor(
         initialValue = FavoriteTeamViewState()
     )
 
-    fun onSearchEvent(event: SearchEvent) {
+    fun onEvent(event: FavTeamEventInterface){
+        when(event){
+            is SearchEvent -> onSearchEvent(event)
+            is FavoriteTeamEvent -> onFavoriteTeamEvent(event)
+        }
+    }
+
+    private fun onSearchEvent(event: SearchEvent) {
         when (event) {
             is SearchEvent.Search -> {
                 viewModelScope.launch {
@@ -59,6 +66,14 @@ class FavoriteTeamViewModel @Inject constructor(
                 viewState.value = viewStateFlow.value.copy(searchString = event.searchString)
             }
 
+        }
+    }
+
+    private fun onFavoriteTeamEvent(event: FavoriteTeamEvent){
+        when(event){
+            is FavoriteTeamEvent.TeamClicked -> {
+                println(event.teamUiModel.teamInfo.name)
+            }
         }
     }
 
