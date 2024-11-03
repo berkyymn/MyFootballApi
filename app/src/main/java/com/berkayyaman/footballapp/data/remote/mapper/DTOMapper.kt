@@ -1,5 +1,6 @@
 package com.berkayyaman.footballapp.data.remote.mapper
 
+import com.berkayyaman.footballapp.data.remote.dto.TeamInfo
 import com.berkayyaman.footballapp.data.remote.dto.TeamsResponse
 import com.berkayyaman.footballapp.domain.model.TeamInfoUiModel
 import com.berkayyaman.footballapp.domain.model.TeamUiModel

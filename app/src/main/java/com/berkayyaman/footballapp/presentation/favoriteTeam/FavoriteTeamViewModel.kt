@@ -3,6 +3,7 @@ package com.berkayyaman.footballapp.presentation.favoriteTeam
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.berkayyaman.footballapp.domain.usecases.SearchTeamsUseCase
+import com.berkayyaman.footballapp.domain.usecases.SetFavoriteTeamUseCase
 import com.berkayyaman.footballapp.presentation.searchbar.SearchEvent
 import com.berkayyaman.footballapp.util.FlowExtensions.onError
 import com.berkayyaman.footballapp.util.FlowExtensions.onSuccess
@@ -21,6 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteTeamViewModel @Inject constructor(
+    private val setFavoriteTeam: SetFavoriteTeamUseCase,
     private val searchTeam: SearchTeamsUseCase
 ) : ViewModel() {
 
@@ -72,7 +74,9 @@ class FavoriteTeamViewModel @Inject constructor(
     private fun onFavoriteTeamEvent(event: FavoriteTeamEvent){
         when(event){
             is FavoriteTeamEvent.TeamClicked -> {
-                println(event.teamUiModel.teamInfo.name)
+                viewModelScope.launch {
+                    setFavoriteTeam(event.teamUiModel)
+                }
             }
         }
     }

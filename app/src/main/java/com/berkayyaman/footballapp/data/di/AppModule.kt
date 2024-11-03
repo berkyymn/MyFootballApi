@@ -1,6 +1,9 @@
 package com.berkayyaman.footballapp.data.di
 
 import android.content.Context
+import androidx.room.Room
+import com.berkayyaman.footballapp.data.local.FootballDao
+import com.berkayyaman.footballapp.data.local.FootballDatabase
 import com.berkayyaman.footballapp.data.remote.FootballApi
 import com.berkayyaman.footballapp.data.remote.mapper.DTOMapper
 import com.berkayyaman.footballapp.data.repository.FootballRepository
@@ -83,8 +86,26 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideFootballRepository(api: FootballApi, dtoMapper: DTOMapper): FootballRepository {
-        return FootballRepositoryIMPL(api, dtoMapper)
+    fun provideFootballRepository(api: FootballApi,footballDao: FootballDao, dtoMapper: DTOMapper): FootballRepository {
+        return FootballRepositoryIMPL(api,footballDao, dtoMapper)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFootballDatabase(
+        @ApplicationContext context: Context
+    ): FootballDatabase{
+        return Room.databaseBuilder(
+            context = context,
+            FootballDatabase::class.java,
+            "Footbal_Database"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFootballDao(footballDatabase: FootballDatabase): FootballDao{
+        return footballDatabase.footballDao
     }
 
 }

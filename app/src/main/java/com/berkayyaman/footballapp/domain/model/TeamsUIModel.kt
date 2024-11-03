@@ -1,6 +1,8 @@
 package com.berkayyaman.footballapp.domain.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.berkayyaman.footballapp.data.remote.dto.BaseEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
@@ -15,7 +17,10 @@ data class TeamsUIModel(
 ): BaseEntity()
 
 @Parcelize
+@Entity(tableName = "TeamUiModel")
 data class TeamUiModel(
+    @PrimaryKey
+    val id: Int = 0,
     @SerializedName("team")
     var teamInfo: TeamInfoUiModel = TeamInfoUiModel(),
     @SerializedName("venue")

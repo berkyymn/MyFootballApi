@@ -10,6 +10,7 @@ import com.berkayyaman.footballapp.domain.model.VenueUiModel
 object MockData {
 
     val teamUiModel = TeamUiModel(
+        id = 0,
         TeamInfoUiModel(
             code = "FEN",
             id = 611,
