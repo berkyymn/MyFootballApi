@@ -45,7 +45,7 @@ class FavoriteTeamViewModel @Inject constructor(
         when (event) {
             is SearchEvent.Search -> {
                 viewModelScope.launch {
-                    viewState.value = viewStateFlow.value.copy(isLoading = true)
+                    viewState.value = viewStateFlow.value.copy(isLoading = true, error = "")
                 }
 
                 searchTeam.invoke(viewStateFlow.value.searchString)

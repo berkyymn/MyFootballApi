@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.berkayyaman.footballapp.domain.model.TeamUiModel
+import com.berkayyaman.footballapp.presentation.common.CircularIndicator
+import com.berkayyaman.footballapp.presentation.common.ErrorDialog
 import com.berkayyaman.footballapp.presentation.searchbar.SearchBar
 import com.berkayyaman.footballapp.presentation.searchbar.SearchEvent
 import com.berkayyaman.footballapp.ui.theme.FootballAppTheme
@@ -40,6 +42,9 @@ private fun MyScreen(
     onEvent: (FavTeamEventInterface) -> Unit,
     state: FavoriteTeamViewState
 ) {
+
+    CircularIndicator(state.isLoading)
+    ErrorDialog(state.error)
 
     Column(
         modifier = Modifier.fillMaxSize()
