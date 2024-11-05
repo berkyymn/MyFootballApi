@@ -1,5 +1,6 @@
 package com.berkayyaman.footballapp.data.remote
 
+import com.berkayyaman.footballapp.data.remote.dto.FixturesResponse
 import com.berkayyaman.footballapp.data.remote.dto.TeamsResponse
 import com.berkayyaman.footballapp.util.Constants
 import retrofit2.Response
@@ -17,4 +18,14 @@ interface FootballApi {
     suspend fun searchForTeam(
         @Query("search") searchString: String
     ): Response<TeamsResponse>
+
+
+    @Headers("x-rapidapi-key:${Constants.API_KEY}")
+    @GET("fixtures")
+    suspend fun getFixtures(
+        @Query("team") teamId : Int,
+        @Query("last") last: Int? = null,
+        @Query("next") next: Int? = null
+    ): Response<FixturesResponse>
+
 }

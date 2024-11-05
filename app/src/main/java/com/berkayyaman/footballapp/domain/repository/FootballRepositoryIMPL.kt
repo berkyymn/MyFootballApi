@@ -4,6 +4,7 @@ import com.berkayyaman.footballapp.data.local.FootballDao
 import com.berkayyaman.footballapp.data.remote.FootballApi
 import com.berkayyaman.footballapp.data.remote.mapper.DTOMapper
 import com.berkayyaman.footballapp.data.repository.FootballRepository
+import com.berkayyaman.footballapp.domain.model.FixturesUIModel
 import com.berkayyaman.footballapp.domain.model.TeamUiModel
 import com.berkayyaman.footballapp.domain.model.TeamsUIModel
 import com.berkayyaman.footballapp.util.Resource
@@ -31,6 +32,19 @@ class FootballRepositoryIMPL(
                 dtoMapper.map(it)
             }
         }
+
+    override suspend fun getFixtures(
+        teamId: Int,
+        last: Int?,
+        next: Int?
+    ): Resource<FixturesUIModel> =
+        withContext(Dispatchers.IO){
+            request {
+                api.getFixtures(teamId, last, next)
+            }.mapOnSuccess {
+                dtoMapper.map(it)
+            }
+    }
 
     override suspend fun upsert(teamUiModel: TeamUiModel) {
         footballDao.upsert(teamUiModel)
