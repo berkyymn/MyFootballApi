@@ -48,5 +48,14 @@ inline fun <T,R> Resource<T>.mapOnSuccess(map : (T?) -> R) : Resource<R> = when(
     is Resource.Success -> Resource.Success(map(result))
     is Resource.Error -> this
     is Resource.Loading -> this
-
 }
+
+inline fun <T> Resource<T>.onSuccess(call: (T) -> Unit) : Resource<T> = when(this){
+    is Resource.Success -> {
+        call.invoke(result)
+        this
+    }
+    is Resource.Error -> this
+    is Resource.Loading -> this
+}
+

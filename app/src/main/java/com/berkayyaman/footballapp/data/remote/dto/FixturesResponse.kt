@@ -1,6 +1,8 @@
 package com.berkayyaman.footballapp.data.remote.dto
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -8,13 +10,18 @@ import kotlinx.parcelize.Parcelize
  * Created by berkayyaman on 05,November,2024
  */
 
+
 data class FixturesResponse(
     @SerializedName("response")
     var response: ArrayList<FixtureInfo?>? = null,
 ):BaseEntity()
 
+@Entity(tableName = "FixturesResponse")
 @Parcelize
 data class FixtureInfo(
+    @PrimaryKey
+    var fixtureId: Int,
+    var teamId: Int,
     @SerializedName("fixture")
     var fixture: Fixture? = null,
     @SerializedName("goals")

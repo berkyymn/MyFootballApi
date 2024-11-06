@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.berkayyaman.footballapp.data.remote.dto.FixtureInfo
 import com.berkayyaman.footballapp.domain.model.TeamUiModel
 
 /**
@@ -11,7 +12,7 @@ import com.berkayyaman.footballapp.domain.model.TeamUiModel
  */
 
 @Database(
-    entities = [TeamUiModel::class],
+    entities = [TeamUiModel::class, FixtureInfo::class],
     version = 1,
     exportSchema = false
 )

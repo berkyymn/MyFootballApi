@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.ArrayList
 import javax.inject.Inject
 
 /**
@@ -49,19 +50,39 @@ class HomeViewModel @Inject constructor(
                     it.copy(favoriteTeam = favoriteTeam)
                 }
 
-                getFixtures.getLastMatches(teamId = favoriteTeam.teamInfo.id, last = 10).combine(
-                    getFixtures.getNextMatches(teamId = favoriteTeam.teamInfo.id, next = 10)){last, next ->
-
-                    if (last is Resource.Error || next is Resource.Error){
-
+                footballRepository.getFixturesFromDb(favoriteTeam.teamInfo.id).collectLatest { fixtures ->
+                    if (fixtures.isEmpty()){
                         viewState.update {
-                            viewState.value.copy(
+                            it.copy(
+                                isLoading = true,
+                                error = ""
+                            )
+                        }
+
+                        getFixtures.getLastMatches(teamId = favoriteTeam.teamInfo.id, last = 10).combine(
+                            getFixtures.getNextMatches(teamId = favoriteTeam.teamInfo.id, next = 10)){last, next ->
+
+                            if (last is Resource.Error || next is Resource.Error){
+
+                                viewState.update {
+                                    viewState.value.copy(
+                                        isLoading = false,
+                                        error = "Error"
+                                    )
+                                }
+                            }
+                        }.launchIn(viewModelScope)
+
+                    }else{
+                        viewState.update {
+                            it.copy(
                                 isLoading = false,
-                                error = "Error"
+                                error = "",
+                                fixtures = ArrayList(fixtures)
                             )
                         }
                     }
-                }.launchIn(viewModelScope)
+                }
 
             }
         }
