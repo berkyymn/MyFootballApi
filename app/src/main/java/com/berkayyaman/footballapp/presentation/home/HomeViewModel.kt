@@ -54,7 +54,7 @@ class HomeViewModel @Inject constructor(
                     if (fixtures.isEmpty()){
 
                         getFixtures.invoke(favoriteTeam.teamInfo.id)
-                            .onSuccess { fixturesUIModel ->
+                            .onSuccess { _ ->
                                 viewState.update {
                                     viewState.value.copy(
                                         loading = false,

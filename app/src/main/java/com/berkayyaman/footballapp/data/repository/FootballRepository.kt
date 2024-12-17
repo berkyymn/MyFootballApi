@@ -24,14 +24,4 @@ interface FootballRepository {
 
     suspend fun upsertFixtures(fixturesResponse: List<FixtureInfo>)
     fun getFixturesFromDB(teamId: Int): Flow<List<FixtureInfoUIModel>>
-
-    suspend fun getFixtures(teamId: Int, last: Int? = null, next: Int? = null): Resource<FixturesUIModel>
-
-
-    suspend fun upsert(teamUiModel: TeamUiModel)
-    fun getFavoriteTeam(): Flow<TeamUiModel?>
-
-    suspend fun upsertFixtures(fixtureResponse: List<FixtureInfo>)
-    fun getFixturesFromDb(teamId: Int): Flow<List<FixtureInfoUIModel>>
-
 }
