@@ -59,7 +59,7 @@ private fun MyView(state: HomeViewState){
                 .weight(weight = 1f, fill = false)
         ) {
             FavoriteTeamSummaryView(state.favoriteTeam)
-            
+
             PreviousAndNextFixtures(state.fixtures)
         }
     }
