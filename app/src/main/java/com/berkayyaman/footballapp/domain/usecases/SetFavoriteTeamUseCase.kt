@@ -12,6 +12,6 @@ class SetFavoriteTeamUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(teamUiModel: TeamUiModel){
-        footballRepository.upsert(teamUiModel)
+        footballRepository.upsertFavoriteTeam(teamUiModel)
     }
 }
